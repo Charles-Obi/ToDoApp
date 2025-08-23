@@ -124,3 +124,27 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+if DEBUG:
+    INTERNAL_IPS = ['127.0.0.1']
+    MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware',]
+    INSTALLED_APPS += ['debug_toolbar',]
+
+LOGGING = {
+    'version': 1,   
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': BASE_DIR / 'debug/debug.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
+
